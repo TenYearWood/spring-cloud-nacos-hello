@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: provider-service
+  cloud:
+    nacos:
+      username: nacos
+      password: nacos
+      config:
+        server-addr: 127.0.0.1:8848
+        #与nacos控制台上选择的配置格式无关，控制台配置格式只是为了显示的方便
+        #file-extension表示按什么格式来解析，默认properties，取值：properties/yaml/yml
+        #如果加载到的配置内容与格式不匹配，将读取不到
+        file-extension: yml
+        #命名空间的id，默认public
+        namespace: public
+        group: DEFAULT_GROUP
+
+
+
