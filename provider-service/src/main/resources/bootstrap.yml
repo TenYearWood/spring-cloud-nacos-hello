@@ -1,18 +1,21 @@
 spring:
   application:
     name: provider-service
+  profiles:
+    active: uat
   cloud:
     nacos:
-      username: nacos
-      password: nacos
+      username: jacltc
+      password: J@cltc260105
       config:
-        server-addr: 127.0.0.1:8848
+        server-addr: 192.168.19.51:8801,192.168.19.52:8803,192.168.19.52:8805
         #与nacos控制台上选择的配置格式无关，控制台配置格式只是为了显示的方便
         #file-extension表示按什么格式来解析，默认properties，取值：properties/yaml/yml
         #如果加载到的配置内容与格式不匹配，将读取不到
         file-extension: yml
+        prefix: ${spring.application.name}  # 配置前缀
         #命名空间的id，默认public
-        namespace: public
+        namespace: 71ba59dc-8f8d-4f36-816b-2a560a80e390
         group: DEFAULT_GROUP
 
 

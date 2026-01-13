@@ -16,7 +16,7 @@
 
     <properties>
         <spring-boot.version>2.6.13</spring-boot.version>
-        <spring-cloud.version>2021.0.9</spring-cloud.version>
+        <spring-cloud.version>2021.0.5</spring-cloud.version>
         <spring-cloud-alibaba.version>2021.0.5.0</spring-cloud-alibaba.version>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
