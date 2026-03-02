@@ -76,7 +76,7 @@ public class RedisService {
      */
     public boolean unlock(String lockKey) {
         RLock rLock = redissonClient.getLock(lockKey);
-        if (rLock != null && rLock.isLocked()) {
+        if (rLock != null && rLock.isHeldByCurrentThread() && rLock.isLocked()) {
             rLock.unlock();
             return true;
         }
