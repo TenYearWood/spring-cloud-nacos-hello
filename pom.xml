@@ -12,6 +12,7 @@
     <modules>
         <module>provider-service</module>
         <module>consumer-service</module>
+        <module>security</module>
     </modules>
 
     <properties>
