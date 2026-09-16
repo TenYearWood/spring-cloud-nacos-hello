@@ -1,21 +1,23 @@
 spring:
   application:
     name: provider-service
-  profiles:
-    active: uat
   cloud:
     nacos:
-      username: jacltc
-      password: J@cltc260105
+      username: nacos
+      password: nacos
       config:
-        server-addr: 192.168.19.51:8801,192.168.19.52:8803,192.168.19.52:8805
+        #server-addr: 192.168.19.51:8801,192.168.19.52:8803,192.168.19.52:8805
+        server-addr: localhost:8848
         #与nacos控制台上选择的配置格式无关，控制台配置格式只是为了显示的方便
         #file-extension表示按什么格式来解析，默认properties，取值：properties/yaml/yml
         #如果加载到的配置内容与格式不匹配，将读取不到
         file-extension: yml
-        prefix: ${spring.application.name}  # 配置前缀
+        #Nacos 配置中心查找配置的 DataId 格式为：{prefix}-{spring.profiles.active}.{file-extension}
+        #这里没配置spring.profiles.active，所以找的是：example.yml
+        #启动之后再nacos上找的是example.yml文件。console：[Nacos Config] Listening config: dataId=example.yml, group=DEFAULT_GROUP
+        prefix: example  # 配置前缀
         #命名空间的id，默认public
-        namespace: 71ba59dc-8f8d-4f36-816b-2a560a80e390
+        namespace:
         group: DEFAULT_GROUP
 
 

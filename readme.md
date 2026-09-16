@@ -1,4 +1,5 @@
-##踩坑注意点
+### 踩坑注意点
+
 1. springboot版本和springCloud版本和springCloudAlibaba版本一定要对应上，否则会出现意想不到的问题，排查半天都解决不了，最后发现是版本不兼容
 2. spring.cloud.nacos.config需要配置在bootstrap.yml中，这是因为低版本的springCloud采用了旧方式，配置中心的连接信息(如nacos地址)必须在应用启动之前获取。
 3. 加载顺序：
@@ -26,7 +27,7 @@
 > 7. 启动应用
 >
 5. 所以需要添加这个依赖：
-```
+```xml
 <!-- 需要 bootstrap starter -->
 <dependency>
   <groupId>org.springframework.cloud</groupId>
