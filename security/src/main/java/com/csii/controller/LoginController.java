@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class LoginController {
 
     // 重定向到登录页面
-    @RequestMapping("/login")
+    @RequestMapping("/toLogin")
     public String index() {
-        return "redirect:login.html";
+        return "redirect:main.html";
     }
 
     // 重定向到登录成功页面
@@ -21,7 +21,6 @@ public class LoginController {
     // 重定向到登录成功页面
     @RequestMapping ("/toError")
     public String toError() {
-        int a = 1/0;
         return "redirect:error.html";
     }
 }

@@ -4,3 +4,15 @@ server:
 spring:
   application:
     name: security
+  datasource:
+    url: jdbc:mysql://localhost:3306/spring_cloud_nacos_hello?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+# MyBatis-Plus 配置
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/**/*.xml
+  configuration:
+    # 指定日志实现为标准输出
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

@@ -22,10 +22,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // 自定义登录页面路径
                 .loginPage("/login.html")
                 // 当发现是login请求时，去执行UserDetailsServerImpl，必须和html表单的请求路径一样
-                .loginProcessingUrl("/login")
+                .loginProcessingUrl("/toLogin")
                 // 登录成功后跳转到指定controller路径,必须是post请求
-                //.successForwardUrl("/toMain")
-                .successHandler(new MyAuthenticationSuccessHandler("http://www.baidu.com"))
+                .successForwardUrl("/toMain")
+                //.successHandler(new MyAuthenticationSuccessHandler("http://www.baidu.com"))
                 // 登录失败后跳转到指定controller路径,必须是post请求
                 //.failureForwardUrl("/toError");
                 .failureHandler(new MyAuthenticationFailureHandler());
