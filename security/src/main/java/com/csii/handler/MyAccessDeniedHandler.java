@@ -19,13 +19,18 @@ public class MyAccessDeniedHandler implements AccessDeniedHandler {
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response,
                        AccessDeniedException accessDeniedException) throws IOException, ServletException {
-        // 设置响应码403
-        response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-        // 设置响应头
-        response.setHeader("Content-Type", "application/json;charset=utf-8");
-        PrintWriter writer = response.getWriter();
-        writer.write("{\"code\":\"403\", \"status\":\"error\", \"msg\":\"权限不足，请联系管理员\"}");
-        writer.flush();
-        writer.close();
+        response.setStatus(HttpServletResponse.SC_OK);
+        response.setContentType("text/html;charset=UTF-8");
+        response.getWriter().write(
+                "<html>" +
+                        "<body>" +
+                        "<div style='width:800px;text-align:center;margin:auto;font-size:24px'>" +
+                        "权限不足，请联系管理员" +
+                        "</div>" +
+                        "</body>" +
+                        "</html>"
+
+        );
+        response.getWriter().flush();//刷新缓冲区
     }
 }

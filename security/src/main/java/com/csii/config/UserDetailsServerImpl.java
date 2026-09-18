@@ -41,7 +41,6 @@ public  class UserDetailsServerImpl implements UserDetailsService {
         String password = passwordEncoder.encode(userEntity.getPassword());
 
         // admin表示拥有管理员权限，normal表示拥有普通权限
-        return new User(username, password,
-                AuthorityUtils.commaSeparatedStringToAuthorityList("" + "admin,normal"));
+        return new User(username, password, AuthorityUtils.commaSeparatedStringToAuthorityList("admin,normal"));
     }
 }

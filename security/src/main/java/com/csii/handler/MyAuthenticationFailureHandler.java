@@ -24,7 +24,7 @@ public class MyAuthenticationFailureHandler implements AuthenticationFailureHand
         // 设置响应头
         response.setHeader("Content-Type", "application/json;charset=utf-8");
         PrintWriter writer = response.getWriter();
-        writer.write("{\"code\":\"403\", \"status\":\"error\", \"msg\":\"权限不足，请联系管理员\"}");
+        writer.write("{\"code\":\"403\", \"status\":\"error\", \"msg\":\"用户名或密码错误\"}");
         writer.flush();
         writer.close();
     }

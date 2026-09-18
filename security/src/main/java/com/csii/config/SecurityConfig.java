@@ -11,6 +11,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    @Autowired
+    private MyAccessDeniedHandler myAccessDeniedHandler;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // 表单提交
@@ -23,6 +26,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/login.html")
                 // 当发现是login请求时，去执行UserDetailsServerImpl，必须和html表单的请求路径一样
                 .loginProcessingUrl("/toLogin")
+                //登录成功之后跳转到这个请求上
+                .defaultSuccessUrl("/toMain")
                 // 登录成功后跳转到指定controller路径,必须是post请求
                 .successForwardUrl("/toMain")
                 //.successHandler(new MyAuthenticationSuccessHandler("http://www.baidu.com"))
@@ -38,8 +43,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/css/**", "/js/**", "/images/**").permitAll() // 放行静态资源
                 // 拥有admin权限才能访问admin.html
                 .antMatchers("/admin.html").hasAnyAuthority("admin")
-                // 所有请求都需要认证
+                // 所有请求都需要登录认证
                 .anyRequest().authenticated();
+
+        // 配置403访问错误处理器。
+        http.exceptionHandling().accessDeniedHandler(myAccessDeniedHandler);
 
         // 关闭csrf保护，类似防火墙
         http.csrf().disable();
