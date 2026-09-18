@@ -43,9 +43,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // 放开登录页面（这个一定要写在前面，不然报错）
                 .antMatchers("/login.html").permitAll()
                 .antMatchers("/error.html").permitAll()
-                .antMatchers("/css/**", "/js/**", "/images/**").permitAll() // 放行静态资源
-                // 拥有admin权限才能访问admin.html
-                .antMatchers("/admin.html").hasAnyAuthority("admin")
+                // 所有的静态资源允许匿名访问
+                .antMatchers(
+                        "/css/**",
+                        "/js/**",
+                        "/images/**",
+                        "/fonts/**",
+                        "/favicon.ico").anonymous()
+                .antMatchers(
+                        "/**/*.js",
+                        "/profile/**"
+                ).permitAll()
                 // 需要用户带有管理员角色才可以访问/findAll接口
                 .antMatchers("/findAll").hasRole("管理员")
                 .antMatchers("/find").hasRole("管理员")
@@ -58,7 +66,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // 所有请求都需要登录认证
                 .anyRequest().authenticated();
 
-        // 配置403访问错误处理器。(权限不足等)
+        // 配置没有权限访问错误处理器。(权限不足等)
         http.exceptionHandling().accessDeniedHandler(myAccessDeniedHandler);
         // 退出，这里的/logout请求是和前端的接口约定，是security给我们提供的，退出成功后跳转到登录页
         http.logout().logoutUrl("/logout").logoutSuccessUrl("/login.html").permitAll();
