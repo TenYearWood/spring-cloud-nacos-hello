@@ -24,7 +24,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
                 // 自定义登录页面路径
                 .loginPage("/login.html")
-                // 当发现是login请求时，去执行UserDetailsServerImpl，必须和html表单的请求路径一样
+                /**
+                 * 设置登录接口地址，这个接口不是真实存在的，还是用的security给我们提供的，之所以要有这个配置，是login.html中form表单提交的登录地址是这个
+                 * 当发现是toLogin请求时，去执行UserDetailsServerImpl，必须和html表单的请求路径一样
+                 */
                 .loginProcessingUrl("/toLogin")
                 //登录成功之后跳转到这个请求上
                 .defaultSuccessUrl("/toMain")
@@ -43,11 +46,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/css/**", "/js/**", "/images/**").permitAll() // 放行静态资源
                 // 拥有admin权限才能访问admin.html
                 .antMatchers("/admin.html").hasAnyAuthority("admin")
+                // 需要用户带有管理员角色才可以访问/findAll接口
+                .antMatchers("/findAll").hasRole("管理员")
+                .antMatchers("/find").hasRole("管理员")
+                /*
+                 * 要用户具备menu:user这个接口的许可，才可以访问
+                 * 虽然我限制了find接口必须具备管理员权限才能访问，但是我还设置了只要具有menu:user菜单许可即可访问。
+                 * 也就是两个判断条件我满足了一个就能访问。
+                 */
+                .antMatchers("/find").hasAuthority("menu:user")
                 // 所有请求都需要登录认证
                 .anyRequest().authenticated();
 
-        // 配置403访问错误处理器。
+        // 配置403访问错误处理器。(权限不足等)
         http.exceptionHandling().accessDeniedHandler(myAccessDeniedHandler);
+        // 退出，这里的/logout请求是和前端的接口约定，是security给我们提供的，退出成功后跳转到登录页
+        http.logout().logoutUrl("/logout").logoutSuccessUrl("/login.html").permitAll();
 
         // 关闭csrf保护，类似防火墙
         http.csrf().disable();

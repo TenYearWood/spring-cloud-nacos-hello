@@ -7,7 +7,7 @@
     <!-- 通用结果映射：数据库下划线 -> Java 驼峰 -->
     <resultMap id="BaseResultMap" type="com.csii.common.entity.UserEntity">
         <id column="id" property="id"/>
-        <result column="user_name" property="userName"/>
+        <result column="user_name" property="username"/>
         <result column="password" property="password"/>
         <result column="status" property="status"/>
         <result column="remark" property="remark"/>

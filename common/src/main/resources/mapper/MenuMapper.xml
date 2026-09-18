@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.csii.common.dao.MenuMapper">
+
+    <resultMap id="BaseResultMap" type="com.csii.common.entity.Menu">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="url" property="url"/>
+        <result column="parent_id" property="parentId"/>
+        <result column="permission" property="permission"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, name, url, parent_id, permission
+    </sql>
+
+    <select id="selectMenuByUserId" resultMap="BaseResultMap">
+        select t1.id, t1.name, t1.url, t1.parent_id, t1.permission
+        from t_menu t1
+        join t_role_menu t2 on t1.id = t2.mid
+        join t_role t3 on t2.rid = t3.id
+        join t_role_user t4 on t3.id = t4.rid
+        join t_user t5 on t5.id = t4.uid
+        where t5.id = #{userId}
+    </select>
+
+</mapper>

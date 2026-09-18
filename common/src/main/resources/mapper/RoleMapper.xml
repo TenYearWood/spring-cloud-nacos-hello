@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.csii.common.dao.RoleMapper">
+
+    <resultMap id="BaseResultMap" type="com.csii.common.entity.Role">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, name
+    </sql>
+
+    <select id="selectRoleByUserId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_role_user t1
+        join t_role t2 on t1.rid = t2.id
+        where t1.uid = #{userId}
+    </select>
+
+</mapper>

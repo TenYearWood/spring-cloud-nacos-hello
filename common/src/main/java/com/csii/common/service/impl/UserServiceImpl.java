@@ -20,9 +20,9 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
 
     @Override
-    public UserEntity selectByName(String userName) {
+    public UserEntity selectByName(String username) {
         LambdaQueryWrapper<UserEntity> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(UserEntity::getUserName, userName);
+        queryWrapper.eq(UserEntity::getUsername, username);
         queryWrapper.eq(UserEntity::getStatus, Constants.CODE_ZERO);
         List<UserEntity> userEntities = userMapper.selectList(queryWrapper);
         return CollUtil.isNotEmpty(userEntities) ? userEntities.get(0) : null;

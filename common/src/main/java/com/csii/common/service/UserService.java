@@ -4,5 +4,5 @@ import com.csii.common.entity.UserEntity;
 
 public interface UserService {
 
-    UserEntity selectByName(String userName);
+    UserEntity selectByName(String username);
 }

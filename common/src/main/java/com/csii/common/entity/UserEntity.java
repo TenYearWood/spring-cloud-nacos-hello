@@ -16,7 +16,7 @@ public class UserEntity {
     @TableId(type = IdType.AUTO)
     private Long id;
 
-    private String userName;
+    private String username;
     private String password;
     private Integer status;
     private String remark;
