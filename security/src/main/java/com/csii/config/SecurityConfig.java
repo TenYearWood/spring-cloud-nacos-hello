@@ -1,5 +1,6 @@
 package com.csii.config;
 
+import com.csii.filter.JwtFilter;
 import com.csii.handler.MyAccessDeniedHandler;
 import com.csii.handler.MyAuthenticationFailureHandler;
 import com.csii.handler.MyAuthenticationSuccessHandler;
@@ -10,6 +11,12 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    private MyAuthenticationSuccessHandler myAuthenticationSuccessHandler;
+
+    @Autowired
+    private MyAuthenticationFailureHandler myAuthenticationFailureHandler;
 
     @Autowired
     private MyAccessDeniedHandler myAccessDeniedHandler;
@@ -32,11 +39,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //登录成功之后跳转到这个请求上
                 .defaultSuccessUrl("/toMain")
                 // 登录成功后跳转到指定controller路径,必须是post请求
-                .successForwardUrl("/toMain")
-                //.successHandler(new MyAuthenticationSuccessHandler("http://www.baidu.com"))
+                //.successForwardUrl("/toMain")
+                .successHandler(myAuthenticationSuccessHandler)
                 // 登录失败后跳转到指定controller路径,必须是post请求
                 //.failureForwardUrl("/toError");
-                .failureHandler(new MyAuthenticationFailureHandler());
+                .failureHandler(myAuthenticationFailureHandler);
 
         // 授权认证
         http.authorizeRequests()
@@ -64,7 +71,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                  */
                 .antMatchers("/find").hasAuthority("menu:user")
                 // 所有请求都需要登录认证
-                .anyRequest().authenticated();
+                .anyRequest().authenticated()
+                .and()
+                // 添加JWT认证过滤器
+                .addFilter(new JwtFilter(authenticationManager()));
 
         // 配置没有权限访问错误处理器。(权限不足等)
         http.exceptionHandling().accessDeniedHandler(myAccessDeniedHandler);
