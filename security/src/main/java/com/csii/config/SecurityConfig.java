@@ -38,9 +38,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginProcessingUrl("/toLogin")
                 //登录成功之后跳转到这个请求上
                 .defaultSuccessUrl("/toMain")
+                .successHandler(myAuthenticationSuccessHandler)
                 // 登录成功后跳转到指定controller路径,必须是post请求
                 //.successForwardUrl("/toMain")
-                .successHandler(myAuthenticationSuccessHandler)
                 // 登录失败后跳转到指定controller路径,必须是post请求
                 //.failureForwardUrl("/toError");
                 .failureHandler(myAuthenticationFailureHandler);
