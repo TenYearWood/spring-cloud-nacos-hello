@@ -1,6 +1,6 @@
 package com.csii.handler;
 
-import cn.hutool.json.JSONUtil;
+import com.csii.common.util.ResponseUtil;
 import com.csii.common.vo.Result;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -15,7 +15,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.Date;
 
@@ -43,13 +42,6 @@ public class MyAuthenticationSuccessHandler implements AuthenticationSuccessHand
                 .signWith(SignatureAlgorithm.HS512, "csii@123")
                 .compact();
 
-        Result<String> result = Result.ok(jwt);
-        response.setContentType("application/json;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        out.write(JSONUtil.toJsonStr(result));
-        out.flush();
-        out.close();
+        ResponseUtil.write(response, Result.ok(jwt));
     }
-
-
 }
