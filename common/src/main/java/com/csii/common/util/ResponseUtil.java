@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 
 @Slf4j
 public class ResponseUtil {
@@ -22,10 +23,9 @@ public class ResponseUtil {
 
         ServletOutputStream out = null;
         try {
-            response.setCharacterEncoding("UTF-8");
             response.setContentType("application/json;charset=UTF-8");
             out = response.getOutputStream();
-            out.write(JSONUtil.toJsonStr(result).getBytes());
+            out.write(JSONUtil.toJsonStr(result).getBytes(StandardCharsets.UTF_8));
         } catch (Exception e) {
             log.error("输出JSON出错", e);
         } finally {
