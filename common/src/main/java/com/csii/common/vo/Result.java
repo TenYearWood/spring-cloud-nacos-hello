@@ -30,11 +30,11 @@ public class Result<T> {
         return new Result<T>(data);
     }
 
-    public static <T> Result<T> failed(String code, String message) {
-        return failed(code, message, null);
+    public static <T> Result<T> fail(String code, String message) {
+        return fail(code, message, null);
     }
 
-    public static <T> Result<T> failed(String code, String message, T data) {
+    public static <T> Result<T> fail(String code, String message, T data) {
         Result<T> result = new Result<>(data);
         result.code = code;
         result.message = message;

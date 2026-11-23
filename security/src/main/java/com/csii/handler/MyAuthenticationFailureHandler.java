@@ -27,7 +27,7 @@ public class MyAuthenticationFailureHandler implements AuthenticationFailureHand
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
         log.error("onAuthenticationFailure", exception);
-        Result<String> result = Result.failed(String.valueOf(HttpServletResponse.SC_FORBIDDEN), exception.getMessage());
+        Result<String> result = Result.fail(String.valueOf(HttpServletResponse.SC_FORBIDDEN), exception.getMessage());
         if (exception instanceof LockedException) {
             result.setMessage("账户被锁定，请联系管理员!");
         } else if (exception instanceof CredentialsExpiredException) {

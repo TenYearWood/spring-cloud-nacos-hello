@@ -24,7 +24,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(BizException.class)
     public Result<Void> handleBizException(BizException e) {
-        return Result.failed(e.getCode(), e.getMessage());
+        return Result.fail(e.getCode(), e.getMessage());
     }
 
     /**
@@ -32,12 +32,12 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public Result<Void> handleMismatch(MethodArgumentTypeMismatchException e) {
-        return Result.failed("400", "参数 " + e.getName() + " 类型错误");
+        return Result.fail("400", "参数 " + e.getName() + " 类型错误");
     }
 
     @ExceptionHandler(Exception.class)
     public Result<Void> handleAll(Exception e) {
         log.error(e.getMessage(), e);
-        return Result.failed(ECodeEnum.SERVER_ERROR.getCode(), ECodeEnum.SERVER_ERROR.getMessage());
+        return Result.fail(ECodeEnum.SERVER_ERROR.getCode(), ECodeEnum.SERVER_ERROR.getMessage());
     }
 }

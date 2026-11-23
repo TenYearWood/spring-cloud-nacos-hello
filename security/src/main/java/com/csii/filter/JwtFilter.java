@@ -49,11 +49,11 @@ public class JwtFilter extends BasicAuthenticationFilter {
             User principal = new User(username, "", authorities);
             SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(principal, null, authorities));
         } catch (ExpiredJwtException e) {
-            ResponseUtil.out(response, Result.failed("401", "登录已失效，请重新登录"));
+            ResponseUtil.out(response, Result.fail("401", "登录已失效，请重新登录"));
             return;
         } catch (Exception e) {
             log.error(e.getMessage(), e);
-            ResponseUtil.out(response, Result.failed("500", "解析token错误"));
+            ResponseUtil.out(response, Result.fail("500", "解析token错误"));
             return;
         }
 
