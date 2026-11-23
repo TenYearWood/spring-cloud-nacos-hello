@@ -1,22 +1,22 @@
 package com.csii.common.vo;
 
+import com.csii.common.enums.ECodeEnum;
 import lombok.Data;
-import org.slf4j.MDC;
 
 @Data
 public class Result<T> {
 
-    private int code;
+    private String code;
     private String message;
     private T data;
 
     public Result(T data) {
-        this.code = 200;
-        this.message = "操作成功";
+        this.code = ECodeEnum.SUCCESS.getCode();
+        this.message = ECodeEnum.SUCCESS.getMessage();
         this.data = data;
     }
 
-    public Result(int code, String msg, T data) {
+    public Result(String code, String msg, T data) {
         this.code = code;
         this.message = msg;
         this.data = data;
@@ -30,11 +30,11 @@ public class Result<T> {
         return new Result<T>(data);
     }
 
-    public static <T> Result<T> failed(int code, String message) {
+    public static <T> Result<T> failed(String code, String message) {
         return failed(code, message, null);
     }
 
-    public static <T> Result<T> failed(int code, String message, T data) {
+    public static <T> Result<T> failed(String code, String message, T data) {
         Result<T> result = new Result<>(data);
         result.code = code;
         result.message = message;
